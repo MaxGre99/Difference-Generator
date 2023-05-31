@@ -7,10 +7,8 @@ import _ from 'lodash'; // этот модуль надо устанавлива
 const genDiff = (filepath1, filepath2) => {
   const file1 = fs.readFileSync(filepath1, 'utf-8'); // создаём строки с наполнением из файла
   const file2 = fs.readFileSync(filepath2, 'utf-8');
-
   const obj1 = JSON.parse(file1); // превращаем строки в объекты (ключ: значение)
   const obj2 = JSON.parse(file2);
-
   const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
 
   const diff = keys.map((key) => {
