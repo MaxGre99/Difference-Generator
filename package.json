@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/MaxGre99/frontend-bootcamp-project-46/workflows/hexlet-check/badge.svg)](https://github.com/MaxGre99/frontend-bootcamp-project-46/actions)",
-  "main": "index.js",
+  "main": "gendiff.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +10,11 @@
   "author": "MaxGre99",
   "license": "ISC",
   "devDependencies": {
-    "commander": "^10.0.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "commander": "^10.0.1"
   }
 }
