@@ -15,16 +15,12 @@ const genDiff = (filepath1, filepath2) => {
 
   const diff = keys.map((key) => {
     if (_.has(obj1, key) && _.has(obj2, key)) { // если ключ есть в первом объкте (файле) И во втором объекте (файле)
-        if (_.isEqual(obj1[key], obj2[key])) { // И если значения у этих ключей одинаковы в обоих файлах
-            return `${key}: ${obj1[key]}\n`; // возвращаем строку из ключа-значения
-        } return `- ${key}: ${obj1[key]}\n+ ${key}: ${obj2[key]}\n`;
+        return (_.isEqual(obj1[key], obj2[key])) ? `${key}: ${obj1[key]}\n` : `- ${key}: ${obj1[key]}\n+ ${key}: ${obj2[key]}\n`; // И если значения у этих ключей одинаковы в обоих файлах // возвращаем строку из ключа-значения
     }
-    if (_.has(obj1, key)) {
-        return `- ${key}: ${obj1[key]}\n`;
-    } return `+ ${key}: ${obj2[key]}\n`;
-  });
-  return `{\n${diff.join('')}}`;
- };
+    return (_.has(obj1, key)) ? `- ${key}: ${obj1[key]}\n` : `+ ${key}: ${obj2[key]}\n`;
+});
+return `{\n${diff.join('')}}`;
+};
 
 program
 .name('gendiff')
