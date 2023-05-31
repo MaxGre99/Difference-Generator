@@ -4,22 +4,17 @@ import fs from 'fs'; // это нодовская библиотека, её д�
 import path from 'path'; // это нодовская библиотека, её дополнительно устанавливать не надо
 import _ from 'lodash'; // этот модуль надо устанавливать
 
-const genDiff = (filepath1, filepath2) => {
-  const file1 = fs.readFileSync(filepath1, 'utf-8'); // создаём строки с наполнением из файла
-  const file2 = fs.readFileSync(filepath2, 'utf-8');
-
-  const obj1 = JSON.parse(file1); // превращаем строки в объекты (ключ: значение)
-  const obj2 = JSON.parse(file2);
-
-  const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
-
-  const diff = keys.map((key) => {
+const getDiff = (obj1, obj2, keys) => {
+    return keys.map((key) => {
     if (_.has(obj1, key) && _.has(obj2, key)) { // если ключ есть в первом объкте (файле) И во втором объекте (файле)
-        return (_.isEqual(obj1[key], obj2[key])) ? `${key}: ${obj1[key]}\n` : `- ${key}: ${obj1[key]}\n+ ${key}: ${obj2[key]}\n`; // И если значения у этих ключей одинаковы в обоих файлах // возвращаем строку из ключа-значения
+        if (_.isEqual(obj1[key], obj2[key])) { // И если значения у этих ключей одинаковы в обоих файлах
+            return `${key}: ${obj1[key]}\n`; // возвращаем строку из ключа-значения
+        } return `- ${key}: ${obj1[key]}\n+ ${key}: ${obj2[key]}\n`;
     }
-    return (_.has(obj1, key)) ? `- ${key}: ${obj1[key]}\n` : `+ ${key}: ${obj2[key]}\n`;
-});
-return `{\n${diff.join('')}}`;
+    if (_.has(obj1, key)) {
+        return `- ${key}: ${obj1[key]}\n`;
+    } return `+ ${key}: ${obj2[key]}\n`;
+  }).join('');
 };
 
 program
@@ -31,7 +26,16 @@ program
 .action((filepath1, filepath2) => {
     const resolvedPath1 = path.resolve(process.cwd(), filepath1);
     const resolvedPath2 = path.resolve(process.cwd(), filepath2);
-    console.log(genDiff(resolvedPath1, resolvedPath2));
+    
+    const file1 = fs.readFileSync(resolvedPath1, 'utf-8'); // создаём строки с наполнением из файла
+    const file2 = fs.readFileSync(resolvedPath2, 'utf-8');
+    
+    const obj1 = JSON.parse(file1); // превращаем строки в объекты (ключ: значение)
+    const obj2 = JSON.parse(file2);
+    
+    const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
+
+    console.log(`{\n${getDiff(obj1, obj2, keys)}}`);
 })
 .parse(process.argv);
 
