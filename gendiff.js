@@ -4,15 +4,12 @@ import fs from 'fs'; // это нодовская библиотека, её д�
 import path from 'path'; // это нодовская библиотека, её дополнительно устанавливать не надо
 import _ from 'lodash'; // этот модуль надо устанавливать
 
-const getInfo = (filepath) => fs.readFileSync(filepath, 'utf-8')
-const parsing = (file) => JSON.parse(file);
-
 const genDiff = (filepath1, filepath2) => {
-  const file1 = getInfo(filepath1); // создаём строки с наполнением из файла
-  const file2 = getInfo(filepath2);
+  const file1 = fs.readFileSync(filepath1, 'utf-8'); // создаём строки с наполнением из файла
+  const file2 = fs.readFileSync(filepath2, 'utf-8');
 
-  const obj1 = parsing(file1); // превращаем строки в объекты (ключ: значение)
-  const obj2 = parsing(file2);
+  const obj1 = JSON.parse(file1); // превращаем строки в объекты (ключ: значение)
+  const obj2 = JSON.parse(file2);
 
   const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
 
