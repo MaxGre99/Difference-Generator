@@ -10,11 +10,12 @@
   "author": "MaxGre99",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.41.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
-    "commander": "^10.0.1"
+    "commander": "^10.0.1",
+    "lodash": "^4.17.21"
   }
 }
