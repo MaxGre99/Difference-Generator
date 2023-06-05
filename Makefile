@@ -5,4 +5,6 @@ publish:
 lint:
 	npx eslint
 test:
+	npx jest
+mytest:
 	npx jest --watch
