@@ -1,6 +1,6 @@
 name: GenDiff Check Workflow
 on: [push]
-jobs: 
+jobs:
   genDiff-check:
     runs-on: ubuntu-latest
 
