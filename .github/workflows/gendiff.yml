@@ -2,11 +2,17 @@ name: GenDiff Check Workflow
 on: [push]
 jobs: 
   genDiff-check:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
 
     steps:
     - name: cloning-repostory
       uses: actions/checkout@v3
+
+    - name: setup-node-cache
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
 
     - name: Run linter
       run: make lint
