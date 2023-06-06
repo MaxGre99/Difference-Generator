@@ -7,6 +7,9 @@
     "test": "node --test",
     "coverage": "jest --coverage"
   },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "type": "module",
   "author": "MaxGre99",
   "license": "ISC",
@@ -19,6 +22,7 @@
   },
   "dependencies": {
     "commander": "^10.0.1",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   }
 }

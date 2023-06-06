@@ -9,3 +9,6 @@
 
 ### GitHub Actions Build Passing Badge:
 [![GenDiff Check Workflow](https://github.com/MaxGre99/frontend-bootcamp-project-46/actions/workflows/gendiff.yml/badge.svg)](https://github.com/MaxGre99/frontend-bootcamp-project-46/actions/workflows/gendiff.yml)
+
+### ASCIInema:
+[![asciicast](https://asciinema.org/a/yfNxP14x2gD74KNjXRCfyXwqy.svg)](https://asciinema.org/a/yfNxP14x2gD74KNjXRCfyXwqy)

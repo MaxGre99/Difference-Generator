@@ -85,7 +85,7 @@ const threeKeys = ['a', 'b', 'c']; */
   );
 }); */
 
-import genDiff from '../genDiff-func.js';
+import genDiff from '../bin/genDiff-func.js';
 
 describe('genDiff', () => {
   test.each([

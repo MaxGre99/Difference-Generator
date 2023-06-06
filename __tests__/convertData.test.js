@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
-import convertData from '../convertData.js';
+import convertData from '../bin/convertData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,5 +13,5 @@ it('проверяем корректность сравнения плоски�
   const filepath2 = getFixturePath('file2.json');
   const expectedResult = fs.readFileSync(getFixturePath('result.txt'), 'utf-8');
 
-  expect(convertData(filepath1,filepath2)).toEqual(expectedResult);
+  expect(`${convertData(filepath1,filepath2)}\n`).toEqual(expectedResult);
 });
