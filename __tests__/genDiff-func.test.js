@@ -1,4 +1,4 @@
-import genDiff from '../genDiff-func.js';
+/* import genDiff from '../genDiff-func.js';
 
 const commonObj = { a: 1, b: 2 };
 const twoKeys = ['a', 'b'];
@@ -58,4 +58,29 @@ describe('genDiff', () => { // название теста
     const expected = '  a: 1\n  b: 2\n';
     expect(result).toBe(expected);
   });
+}); */
+
+import genDiff from '../genDiff-func.js';
+const testEach = require('test-each');
+
+const commonObj = { a: 1, b: 2 };
+const twoKeys = ['a', 'b'];
+const threeKeys = ['a', 'b', 'c'];
+
+describe('genDiff', () => {
+  testEach(
+    [
+      [['возвращает пустую строку, когда оба объекта пустые'], {}, {}, [], ''],
+      [['возвращает строку с разными и с одинаковыми значениями (2 шт.)'], commonObj, { a: 3, b: 2 }, twoKeys, '- a: 1\n+ a: 3\n  b: 2\n'],
+      [['возвращает строку с разными и с одинаковыми значениями (3 шт.)'], commonObj, { b: 2, c: 3 }, threeKeys, '- a: 1\n  b: 2\n+ c: 3\n'],
+      [['возвращает строку со всеми отличительными значениями, когда все значения разные'], commonObj, { b: 3, c: 4 }, threeKeys, '- a: 1\n- b: 2\n+ b: 3\n+ c: 4\n'],
+      [['возвращает все строки, когда все файлы одинаковые'], commonObj, commonObj, twoKeys, '  a: 1\n  b: 2\n'],
+    ],
+    (description, obj1, obj2, keys, expected) => {
+      it(description, () => {
+        const result = genDiff(obj1, obj2, keys);
+        expect(result).toBe(expected);
+      });
+    },
+  );
 });
