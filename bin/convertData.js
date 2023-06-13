@@ -3,6 +3,7 @@ import _ from 'lodash'; // этот модуль надо устанавлива
 import fs from 'fs'; // это нодовская библиотека, её дополнительно устанавливать не надо
 import genDiff from './genDiff-func.js';
 import parsers from './parsers.js';
+import stylish from './stylish.js';
 
 export default (filepath1, filepath2) => {
   const resolvedPath1 = path.resolve(process.cwd(), filepath1);
@@ -18,10 +19,6 @@ export default (filepath1, filepath2) => {
   console.log(`EXTENSION === ${fileExtension1}`); */
   const obj1 = parsers(fileExtension1, file1);
   const obj2 = parsers(fileExtension2, file2);
-  /* console.log(`----------------OBJECT +++ RESULT------------------------`);
-  console.log(`PARSING RESULT === ${obj1}`); */
 
-  const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
-
-  return (`{\n${genDiff(obj1, obj2, keys)}}`);
+  return stylish(genDiff(obj1, obj2));
 };
