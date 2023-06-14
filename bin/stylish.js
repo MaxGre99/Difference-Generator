@@ -19,13 +19,12 @@ const stringify = (value, level = 1) => {
   return `{\n${lines}\n${genIndent(level - 1)}}`;
 };
 
-
 const iter = (data, level = 1) => {
   const result = [];
-  const standartIndent = genIndent(level, true);
 
   for (const obj of data) {
     const { key, value, status } = obj;
+    const standartIndent = genIndent(level, true);
     const stringValue = stringify(value, level + 1);
 
     if (status === 'deleted') {
