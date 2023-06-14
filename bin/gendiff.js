@@ -1,14 +1,22 @@
 #!/usr/bin/env node
 import { program } from 'commander'; // этот модуль надо устанавливать
-import convertData from './convertData.js';
+import genDiffStatus from '../src/genDiffStatus.js';
+import convertData from '../src/convertData.js';
+import stylish from '../src/Formatters/stylish.js';
 
 program
   .name('gendiff')
   .version('0.0.3')
   .description('Compares two configuration files and shows a difference.')
   .arguments('<filepath1> <filepath2>', 'filepathes to configs')
-  .option('-f, --format <type>', 'output format')
-  .action((filepath1, filepath2) => console.log(convertData(filepath1,filepath2)))
+  .option('-f, --format <type>', 'output format', 'stylish')
+  .action((filepath1, filepath2) => {
+    if (program.opts().format === 'stylish') {
+      console.log(stylish(convertData(filepath1,filepath2)));
+    } else {
+      console.log('IDK WHAT TO DO!1!!11111');
+    }
+  })
   .parse(process.argv);
 
 /* Algorythm:

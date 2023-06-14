@@ -10,5 +10,3 @@ mytest:
 	npx jest --watch
 gendiff:
 	node bin/gendiff.js
-coverage:
-	npx jest --coverage

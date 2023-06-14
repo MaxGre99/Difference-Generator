@@ -1,9 +1,9 @@
 import path from 'path'; // это нодовская библиотека, её дополнительно устанавливать не надо
 import _ from 'lodash'; // этот модуль надо устанавливать
 import fs from 'fs'; // это нодовская библиотека, её дополнительно устанавливать не надо
-import genDiff from './genDiff-func.js';
+import genDiff from './genDiffStatus.js';
 import parsers from './parsers.js';
-import stylish from './stylish.js';
+import stylish from './Formatters/stylish.js';
 
 export default (filepath1, filepath2) => {
   const resolvedPath1 = path.resolve(process.cwd(), filepath1);
@@ -20,5 +20,5 @@ export default (filepath1, filepath2) => {
   const obj1 = parsers(fileExtension1, file1);
   const obj2 = parsers(fileExtension2, file2);
 
-  return stylish(genDiff(obj1, obj2));
+  return genDiff(obj1, obj2);
 };
