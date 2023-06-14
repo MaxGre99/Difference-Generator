@@ -20,18 +20,20 @@ const stringify = (value, level = 1) => {
 const iter = (data, level = 1) => {
   return data.map(obj => {
     const { key, value, status } = obj;
+    const standartIndent = genIndent(level, true);
+    const stringValue = stringify(value, level + 1);
 
     if (status === 'deleted') {
-      return `${genIndent(level, true)}- ${key}: ${stringify(value, level + 1)}`;
+      return `${standartIndent}- ${key}: ${stringValue}`;
     }
     if (status === 'added') {
-      return `${genIndent(level, true)}+ ${key}: ${stringify(value, level + 1)}`;
+      return `${standartIndent}+ ${key}: ${stringValue}`;
     }
     if (status === 'unchanged') {
-      return `${genIndent(level, true)}  ${key}: ${stringify(value, level + 1)}`;
+      return `${standartIndent}  ${key}: ${stringValue}`;
     }
     if (status === 'changed') {
-      return `${genIndent(level, true)}- ${key}: ${stringify(value[0], level + 1)}\n${genIndent(level, true)}+ ${key}: ${stringify(value[1], level + 1)}`;
+      return `${standartIndent}- ${key}: ${stringify(value[0], level + 1)}\n${standartIndent}+ ${key}: ${stringify(value[1], level + 1)}`;
     }
     if (status === 'nested') {
       return `${genIndent(level)}${key}: {\n${iter(value, level + 1)}\n${genIndent(level)}}`;
