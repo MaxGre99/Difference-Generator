@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default (obj1, obj2) => {
   const compareObjects = (curObj1, curObj2) => {
     const keys = _.sortBy(_.union(_.keys(curObj1), _.keys(curObj2)));
