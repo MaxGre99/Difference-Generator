@@ -3,7 +3,7 @@ import _ from 'lodash';
 const startIndent = 4;
 const replacer = ' ';
 const genIndent = (level, isOffset = false) => {
-  const offset = isOffset ? 2 : 0;
+  const offset = (isOffset) ? 2 : 0;
   return replacer.repeat(startIndent * level - offset);
 };
 
@@ -19,35 +19,26 @@ const stringify = (value, level = 1) => {
   return `{\n${lines}\n${genIndent(level - 1)}}`;
 };
 
-const processDeleted = (key, value, level) => `${genIndent(level, true)}- ${key}: ${stringify(value, level + 1)}`;
-
-const processAdded = (key, value, level) => `${genIndent(level, true)}+ ${key}: ${stringify(value, level + 1)}`;
-
-const processUnchanged = (key, value, level) => `${genIndent(level, true)}  ${key}: ${stringify(value, level + 1)}`;
-
-const processChanged = (key, value, level) => `${genIndent(level, true)}- ${key}: ${stringify(value[0], level + 1)}\n${genIndent(level, true)}+ ${key}: ${stringify(value[1], level + 1)}`;
-
-const processNested = (key, value, level) => `${genIndent(level)}${key}: {\n${iter(value, level + 1)}\n${genIndent(level)}}`;
-
 const iter = (data, level = 1) => {
   const result = [];
 
   for (const obj of data) {
     const { key, value, status } = obj;
+    const standartIndent = genIndent(level, true);
+    const stringValue = stringify(value, level + 1);
 
     if (status === 'deleted') {
-      result.push(processDeleted(key, value, level));
+      result.push(`${standartIndent}- ${key}: ${stringValue}`);
     } else if (status === 'added') {
-      result.push(processAdded(key, value, level));
+      result.push(`${standartIndent}+ ${key}: ${stringValue}`);
     } else if (status === 'unchanged') {
-      result.push(processUnchanged(key, value, level));
+      result.push(`${standartIndent}  ${key}: ${stringValue}`);
     } else if (status === 'changed') {
-      result.push(processChanged(key, value, level));
+      result.push(`${standartIndent}- ${key}: ${stringify(value[0], level + 1)}\n${standartIndent}+ ${key}: ${stringify(value[1], level + 1)}`);
     } else if (status === 'nested') {
-      result.push(processNested(key, value, level));
+      result.push(`${genIndent(level)}${key}: {\n${iter(value, level + 1)}\n${genIndent(level)}}`);
     }
   }
-
   return result.join('\n');
 };
 
