@@ -1,10 +1,11 @@
+import { describe, test, expect } from '@jest/globals';
 import parsers from '../src/parsers.js';
 
 describe('parsers', () => {
   test.each([
     [
       'возвращает парсированный файл, если его формат ".json"',
-      '.json',
+      'json',
       `{
         "host": "hexlet.io",
         "timeout": 50,
@@ -20,7 +21,7 @@ describe('parsers', () => {
     ],
     [
       'возвращает парсированный файл, если его формат ".yaml"',
-      '.yaml',
+      'yaml',
       `{
         "host": "hexlet.io",
         "timeout": 50,
@@ -36,7 +37,7 @@ describe('parsers', () => {
     ],
     [
       'возвращает парсированный файл, если его формат ".yml"',
-      '.yml',
+      'yml',
       `{
         "host": "hexlet.io",
         "timeout": 50,
@@ -50,7 +51,7 @@ describe('parsers', () => {
         follow: false,
       },
     ],
-     [
+    [
       'возвращает ошибку, если формат файла не соответствует параметрам',
       '....asfasfasd',
       `{
@@ -60,7 +61,7 @@ describe('parsers', () => {
         "follow": false
       }`,
       {
-        error: 'Invalid file format'
+        error: 'Invalid file format',
       },
     ],
   ])(

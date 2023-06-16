@@ -1,5 +1,4 @@
 import path from 'path'; // это нодовская библиотека, её дополнительно устанавливать не надо
-import _ from 'lodash'; // этот модуль надо устанавливать
 import fs from 'fs'; // это нодовская библиотека, её дополнительно устанавливать не надо
 import genStatus from './genStatus.js';
 import parsers from './parsers.js';

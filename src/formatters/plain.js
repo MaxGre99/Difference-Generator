@@ -4,7 +4,7 @@ const stringify = (value) => {
   if (_.isObject(value)) {
     return '[complex value]';
   }
-  return String(value);
+  return (_.isString(value)) ? `'${value}'` : value;
 };
 
 const formatter = (path, value, status) => {
@@ -32,13 +32,13 @@ const getPath = (data, path = '') => {
     if (status === 'nested') {
       result.push(...getPath(value, currentPath));
     } else {
-      result.push(formatter(currentPath, value, status));
+      result.push(formatter(`'${currentPath}'`, value, status));
     }
-  })
+  });
   return result;
 };
 
-
 export default (data) => getPath(data).join('\n');
 
-// возможно стоит переделать, чтобы была одна рекурсивная функция, которая и принимает данные и собирает путь.
+// возможно стоит переделать, чтобы была одна рекурсивная функция,
+// которая и принимает данные и собирает путь.
