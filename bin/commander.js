@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander'; // этот модуль надо устанавливать
-import genDiff from '../src/genDiff.js';
+import genDiff from '../src/gendiff.js';
 
 program
   .name('gendiff')
