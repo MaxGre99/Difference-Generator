@@ -27,13 +27,13 @@ const iter = (data, level = 1) => {
     const standartIndent = genIndent(level, true);
     const stringValue = stringify(value, level + 1);
 
-    if (status === 'deleted') {
+    if (status === 'removed') {
       result.push(`${standartIndent}- ${key}: ${stringValue}`);
     } else if (status === 'added') {
       result.push(`${standartIndent}+ ${key}: ${stringValue}`);
     } else if (status === 'unchanged') {
       result.push(`${standartIndent}  ${key}: ${stringValue}`);
-    } else if (status === 'changed') {
+    } else if (status === 'updated') {
       result.push(`${standartIndent}- ${key}: ${stringify(value[0], level + 1)}\n${standartIndent}+ ${key}: ${stringify(value[1], level + 1)}`);
     } else if (status === 'nested') {
       result.push(`${genIndent(level)}${key}: {\n${iter(value, level + 1)}\n${genIndent(level)}}`);

@@ -1,4 +1,4 @@
-import parsers from '../bin/parsers.js';
+import parsers from '../src/parsers.js';
 
 describe('parsers', () => {
   test.each([

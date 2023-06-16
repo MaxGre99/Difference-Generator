@@ -15,10 +15,10 @@ export default (obj1, obj2) => {
         if (_.isEqual(value1, value2)) {
           result.push({ key, value: value1, status: 'unchanged' });
         } else {
-          result.push({ key, value: [value1, value2], status: 'changed' });
+          result.push({ key, value: [value1, value2], status: 'updated' });
         }
       } else if (_.has(curObj1, key)) {
-        result.push({ key, value: value1, status: 'deleted' });
+        result.push({ key, value: value1, status: 'removed' });
       } else {
         result.push({ key, value: value2, status: 'added' });
       }
