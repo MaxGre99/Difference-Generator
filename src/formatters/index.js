@@ -3,13 +3,14 @@ import plain from './plain.js';
 import json from './json.js';
 
 export default (data, formatName) => {
-  if (formatName === 'stylish') {
-    return stylish(data);
-  } else if (formatName === 'plain') {
-    return plain(data);
-  } else if (formatName === 'json') {
-    return json(data);
-  } else {
-    return `Unknown formatter: ${formatName}`;
+  switch (formatName) {
+    case 'stylish':
+      return stylish(data);
+    case 'plain':
+      return plain(data);
+    case 'json':
+      return json(data);
+    default:
+      return `Unknown formatter: ${formatName}`;
   }
 };

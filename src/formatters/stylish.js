@@ -13,33 +13,31 @@ const stringify = (value, level = 1) => {
   }
 
   const lines = Object.entries(value)
-    .map(([key, value]) => `${genIndent(level)}${key}: ${stringify(value, level + 1)}`)
+    .map(([key, val]) => `${genIndent(level)}${key}: ${stringify(val, level + 1)}`)
     .join('\n');
 
   return `{\n${lines}\n${genIndent(level - 1)}}`;
 };
 
-const iter = (data, level = 1) => {
-  const result = [];
+const iter = (data, level = 1) => data.map((obj) => {
+  const { key, value, status } = obj;
+  const standartIndent = genIndent(level, true);
+  const stringValue = stringify(value, level + 1);
 
-  data.forEach((obj) => {
-    const { key, value, status } = obj;
-    const standartIndent = genIndent(level, true);
-    const stringValue = stringify(value, level + 1);
-
-    if (status === 'removed') {
-      result.push(`${standartIndent}- ${key}: ${stringValue}`);
-    } else if (status === 'added') {
-      result.push(`${standartIndent}+ ${key}: ${stringValue}`);
-    } else if (status === 'unchanged') {
-      result.push(`${standartIndent}  ${key}: ${stringValue}`);
-    } else if (status === 'updated') {
-      result.push(`${standartIndent}- ${key}: ${stringify(value[0], level + 1)}\n${standartIndent}+ ${key}: ${stringify(value[1], level + 1)}`);
-    } else if (status === 'nested') {
-      result.push(`${genIndent(level)}${key}: {\n${iter(value, level + 1)}\n${genIndent(level)}}`);
-    }
-  })
-  return result.join('\n');
-};
+  switch (status) {
+    case 'removed':
+      return `${standartIndent}- ${key}: ${stringValue}`;
+    case 'added':
+      return `${standartIndent}+ ${key}: ${stringValue}`;
+    case 'unchanged':
+      return `${standartIndent}  ${key}: ${stringValue}`;
+    case 'updated':
+      return `${standartIndent}- ${key}: ${stringify(value[0], level + 1)}\n${standartIndent}+ ${key}: ${stringify(value[1], level + 1)}`;
+    case 'nested':
+      return `${genIndent(level)}${key}: {\n${iter(value, level + 1)}\n${genIndent(level)}}`;
+    default:
+      return null;
+  }
+}).join('\n');
 
 export default (data) => `{\n${iter(data)}\n}`;
