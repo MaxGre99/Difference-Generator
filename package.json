@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/MaxGre99/frontend-bootcamp-project-46/workflows/hexlet-check/badge.svg)](https://github.com/MaxGre99/frontend-bootcamp-project-46/actions)",
+  "description": "Program, generating differences between two JSON or YAMl/YML files. Returns result in tree, plain or JSON formats.",
   "main": "src/gendiff.js",
   "scripts": {
     "test": "node --test",
